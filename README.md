@@ -30,6 +30,10 @@ The app itself is intentionally simple. The main focus of this assignment is del
 
 ![GitHub Actions CI Test Success Screenshot](./screenshots/github-actions-ci-tests-success.png)
 
+### CI Gate Blocking Deployment (Intentional Failure)
+
+![GitHub Actions Failure Gate Screenshot](./screenshots/github-actions-failure-gate.png)
+
 ## Project Stack
 
 - Node.js
@@ -70,6 +74,16 @@ The project uses one GitHub Actions workflow: `.github/workflows/main.yml`.
 4. The deploy job calls Render Deploy Hook (`RENDER_DEPLOY_HOOK_URL`) to trigger production deployment.
 
 This creates a quality gate where only tested code can reach production.
+
+## How CI Blocks Broken Deployments
+
+The workflow is configured so deployment cannot run unless tests pass.
+
+- The deploy job depends on the test job through `needs: test`.
+- The deploy job only runs on direct pushes to `main`.
+- If any test fails, the test job fails, and the deploy job is skipped automatically.
+
+This protects the live environment from unverified changes.
 
 ## Deployment Strategy
 
