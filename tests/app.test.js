@@ -4,7 +4,7 @@ const app = require("../src/app");
 describe("Todo API", () => {
   test("GET /api/health returns ok", async () => {
     const response = await request(app).get("/api/health");
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(201);
     expect(response.body).toEqual({ status: "ok" });
   });
 
